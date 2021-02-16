@@ -18,8 +18,8 @@ data "intersight_kubernetes_addon_definition" "dashboard_addon_def" {
     name = var.addon_definition_name
 }
 
-resource "intersight_kubernetes_virtual_machine_infrastructure_provider" "IKS-InfraProvider-AMSLAB-All_Flash" {
-    name    = "IKS-InfraProvider-AMSLAB-All_Flash"
+resource "intersight_kubernetes_virtual_machine_infrastructure_provider" "IKS-InfraProvider-JPNLAB-240M4" {
+    name    = "IKS-InfraProvider-JPNLAB-240M4"
     infra_config { 
         object_type = "kubernetes.EsxiVirtualMachineInfraConfig"
         interfaces = var.interfaces
@@ -60,12 +60,12 @@ resource "intersight_kubernetes_node_group_profile" "iks-master_nodepool-1master
     #references
     infra_provider {
         object_type = "kubernetes.VirtualMachineInfrastructureProvider"
-        moid = intersight_kubernetes_virtual_machine_infrastructure_provider.IKS-InfraProvider-AMSLAB-All_Flash.id
+        moid = intersight_kubernetes_virtual_machine_infrastructure_provider.IKS-InfraProvider-JPNLAB-240M4.id
     }
 
     ip_pools {
         object_type = "ippool.Pool"
-        moid = intersight_ippool_pool.IKS-ippool-amslab.id
+        moid = intersight_ippool_pool.IKS-ippool-jpnlab.id
     }
 
     kubernetes_version {
@@ -92,12 +92,12 @@ resource "intersight_kubernetes_node_group_profile" "iks-worker_nodepool-2worker
 
     infra_provider {
         object_type = "kubernetes.VirtualMachineInfrastructureProvider"
-        moid = intersight_kubernetes_virtual_machine_infrastructure_provider.IKS-InfraProvider-AMSLAB-All_Flash.id
+        moid = intersight_kubernetes_virtual_machine_infrastructure_provider.IKS-InfraProvider-JPNLAB-240M4.id
     }
 
     ip_pools {
         object_type = "ippool.Pool"
-        moid = intersight_ippool_pool.IKS-ippool-amslab.id
+        moid = intersight_ippool_pool.IKS-ippool-jpnlab.id
     }
 
     kubernetes_version {
@@ -116,8 +116,8 @@ resource "intersight_kubernetes_node_group_profile" "iks-worker_nodepool-2worker
     }
 }
 
-resource "intersight_ippool_pool" "IKS-ippool-amslab"{
-    name = "IKS-ippool-amslab"
+resource "intersight_ippool_pool" "IKS-ippool-jpnlab"{
+    name = "IKS-ippool-jpnlab"
     description = "The IP Pool used for Kubernetes deployments"
     ip_v4_blocks {
         object_type = "ippool.IpV4Block"
@@ -296,7 +296,7 @@ resource "intersight_kubernetes_cluster_profile" "IKS-k8s-profile" {
 
     cluster_ip_pools {
         object_type = "ippool.Pool"
-        moid = intersight_ippool_pool.IKS-ippool-amslab.id
+        moid = intersight_ippool_pool.IKS-ippool-jpnlab.id
     }
 
     container_runtime_config { 
